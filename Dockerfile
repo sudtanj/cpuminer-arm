@@ -1,36 +1,18 @@
-FROM ubuntu:20.04 AS builder
+# Usage: docker build .
+# Usage: docker run tpruvot/cpuminer-multi -a xevan --url=stratum+tcp://yiimp.ccminer.org:3739 --user=iGadPnKrdpW3pcdVC3aA77Ku4anrzJyaLG --pass=x
 
-# update raspbian
-RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends autoconf \
-    autogen \
-    libcurl4-openssl-dev \
-    libjansson-dev \
-    openssl \
-    libssl-dev \
-    gcc \
-    gawk \
-    git \
-    make \
-    autotools-dev \
-    automake \
- && rm -rf /var/lib/apt/lists/*
+FROM            ubuntu:14.04
+MAINTAINER      Tanguy Pruvot <tanguy.pruvot@gmail.com>
 
-# clone and build
-WORKDIR /
-RUN git config --global http.sslverify false
-RUN git clone https://github.com/lucasjones/cpuminer-multi.git
-WORKDIR /cpuminer-multi
-RUN ./autogen.sh && ./configure && make
+RUN             apt-get update -qq
 
-FROM ubuntu:20.04
-RUN apt-get update -y && apt-get install -y --no-install-recommends \
-    libcurl4 \
-    libjansson4 \
- && rm -rf /var/lib/apt/lists/*
+RUN             apt-get install -qy automake autoconf pkg-config libcurl4-openssl-dev libssl-dev libjansson-dev libgmp-dev make g++ git
 
-WORKDIR /usr/local/bin
-COPY --from=builder /cpuminer-multi/minerd .
-COPY /scripts/minerd.sh .
+RUN             git clone https://github.com/tpruvot/cpuminer-multi -b linux
 
-# start minerd
-CMD ["minerd.sh"]
+RUN             cd cpuminer-multi && ./autogen.sh
+RUN             cd cpuminer-multi && ./configure CFLAGS="-Ofast" --disable-assembly --with-crypto --with-curl
+RUN             cd cpuminer-multi &&  make
+
+WORKDIR         /cpuminer-multi
+ENTRYPOINT      ["./cpuminer"]
