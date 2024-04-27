@@ -17,4 +17,4 @@ RUN             cd cpuminer-multi &&  make
 WORKDIR         /cpuminer-multi
 COPY /scripts/minerd.sh .
 
-ENTRYPOINT      ["minerd.sh"]
+CMD ["minerd.sh"]
