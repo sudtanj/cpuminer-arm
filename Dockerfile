@@ -1,7 +1,7 @@
 FROM ubuntu:20.04 AS builder
 
 # update raspbian
-RUN apt-get update -y && apt-get install -y --no-install-recommends autoconf \
+RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends autoconf \
     autogen \
     libcurl4-openssl-dev \
     libjansson-dev \
