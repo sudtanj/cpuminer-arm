@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ALGO="Scrypt"
-URL="stratum+ssl://scrypt.auto.nicehash.com:443"
+URL="stratum+tcp://scrypt.auto.nicehash.com:9200"
 EMAIL="31up6QwFj8JA5dtQyTB1MtGx3yDoQQ2wE4"
 THREADS="4"
 
