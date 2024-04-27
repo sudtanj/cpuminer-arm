@@ -11,6 +11,8 @@ RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-
     gawk \
     git \
     make \
+    autotools-dev \
+    automake \
  && rm -rf /var/lib/apt/lists/*
 
 # clone and build
