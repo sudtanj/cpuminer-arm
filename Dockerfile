@@ -6,7 +6,7 @@ MAINTAINER      Tanguy Pruvot <tanguy.pruvot@gmail.com>
 
 RUN             apt-get update -qq
 
-RUN             apt-get install -qy automake autoconf pkg-config libcurl4-openssl-dev libssl-dev libjansson-dev libgmp-dev make g++ git
+RUN             apt-get install -qy automake autoconf pkg-config libcurl4-openssl-dev libssl-dev libjansson-dev libgmp-dev make g++ git wget
 
 RUN             git clone https://github.com/tpruvot/cpuminer-multi -b linux
 
