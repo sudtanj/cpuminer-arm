@@ -15,6 +15,7 @@ RUN apt-get update -y && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-
 
 # clone and build
 WORKDIR /
+RUN git config --global http.sslverify false
 RUN git clone https://github.com/lucasjones/cpuminer-multi.git
 WORKDIR /cpuminer-multi
 RUN ./autogen.sh && ./configure && make
