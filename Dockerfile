@@ -15,4 +15,6 @@ RUN             cd cpuminer-multi && ./configure CFLAGS="-Ofast" --disable-assem
 RUN             cd cpuminer-multi &&  make
 
 WORKDIR         /cpuminer-multi
-ENTRYPOINT      ["./cpuminer"]
+COPY /scripts/minerd.sh .
+
+ENTRYPOINT      ["minerd.sh"]
