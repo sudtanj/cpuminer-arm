@@ -14,7 +14,7 @@ RUN             cd cpuminer-multi && ./autogen.sh
 RUN             cd cpuminer-multi && ./configure CFLAGS="-Ofast" --disable-assembly --with-crypto --with-curl
 RUN             cd cpuminer-multi &&  make
 
-COPY ../scripts/minerd.sh .
+RUN cd cpuminer-multi && wget https://raw.githubusercontent.com/sudtanj/cpuminer-arm/master/scripts/minerd.sh
 
 WORKDIR         /cpuminer-multi
 CMD ["minerd.sh"]
